@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Server port="-1">
+  <Service name="Catalina">
+    <!-- Internal HTTP only; never publish directly to an untrusted network. -->
+    <Connector port="${workhub.port}" address="0.0.0.0" protocol="HTTP/1.1"
+               connectionTimeout="20000" maxThreads="50" maxParameterCount="100"
+               maxPostSize="65536" URIEncoding="UTF-8" scheme="https" secure="true"
+               proxyName="${workhub.publicHost}" proxyPort="443" />
+    <Engine name="Catalina" defaultHost="localhost">
+      <Host name="localhost" appBase="webapps" unpackWARs="true" autoDeploy="false">
+        <Valve className="org.apache.catalina.valves.ErrorReportValve"
+               showReport="false" showServerInfo="false" />
+      </Host>
+    </Engine>
+  </Service>
+</Server>

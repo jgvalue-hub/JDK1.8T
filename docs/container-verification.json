@@ -1,0 +1,113 @@
+{
+  "date": "2026-10-27",
+  "scope": "Local source/container validation before publication; external service, host port publication, and persistent credential creation were not performed",
+  "native_codex_preview": "No supported port preview/forwarding tool or user-facing URL available",
+  "host_jdk8_dev_build": {
+    "result": "PASS",
+    "tests": 17,
+    "failures": 0,
+    "errors": 0
+  },
+  "host_jdk8_production_build": {
+    "result": "PASS",
+    "tests": 17,
+    "failures": 0,
+    "errors": 0
+  },
+  "ordinary_docker_build": {
+    "result": "BLOCKED",
+    "step": "Maven Central dependency resolution inside build container",
+    "reason": "repo.maven.apache.org: Temporary failure in name resolution",
+    "network_restrictions_changed": false
+  },
+  "offline_equivalent_docker_build": {
+    "result": "PASS",
+    "tests": 17,
+    "method": "Temporary build context outside repository with the existing Maven dependency cache; mvn -o and Docker RUN network none. Runtime stage identical to repository Dockerfile."
+  },
+  "startup_guards": {
+    "result": "PASS",
+    "negative_startup_checks": [
+      "explicit demo opt-in",
+      "HTTPS proxy confirmation",
+      "public hostname",
+      "secret required",
+      "short secret",
+      "port validation",
+      "hostname injection rejected",
+      "Render hostname fallback"
+    ],
+    "xml": "PASS",
+    "network_or_deployment_performed": false
+  },
+  "runtime_image_checks": {
+    "result": "PASS",
+    "image_id": "sha256:87a4365e8cdc52ee2736eec575749e635a08f00ef39c57235e82959ffe1023e6",
+    "java_version": "openjdk version \"1.8.0_504\"",
+    "unprivileged_user": "10001:10001",
+    "missing_opt_in_exit": 64,
+    "missing_secret_exit": 64,
+    "tomcat_configtest": "PASS",
+    "published_ports": false,
+    "external_deployment": false,
+    "persistent_credentials_created": false
+  },
+  "dev_bytecode": {
+    "war": "workhub.war",
+    "baseline": "Java 8 class version <=52",
+    "class_count": 7661,
+    "ignored_multi_release_or_module_info": 3,
+    "incompatible": [],
+    "libraries": [
+      "spring-aop-5.3.39.jar",
+      "spring-jcl-5.3.39.jar",
+      "spring-tx-5.3.39.jar",
+      "spring-jdbc-5.3.39.jar",
+      "spring-beans-5.3.39.jar",
+      "spring-core-5.3.39.jar",
+      "jstl-1.2.jar",
+      "spring-security-core-5.8.16.jar",
+      "spring-security-web-5.8.16.jar",
+      "spring-expression-5.3.39.jar",
+      "h2-2.2.224.jar",
+      "spring-context-5.3.39.jar",
+      "spring-web-5.3.39.jar",
+      "spring-security-config-5.8.16.jar",
+      "spring-security-crypto-5.8.16.jar",
+      "spring-webmvc-5.3.39.jar"
+    ],
+    "result": "PASS"
+  },
+  "production_bytecode": {
+    "war": "workhub.war",
+    "baseline": "Java 8 class version <=52",
+    "class_count": 6612,
+    "ignored_multi_release_or_module_info": 0,
+    "incompatible": [],
+    "libraries": [
+      "spring-aop-5.3.39.jar",
+      "spring-jcl-5.3.39.jar",
+      "spring-tx-5.3.39.jar",
+      "spring-jdbc-5.3.39.jar",
+      "spring-beans-5.3.39.jar",
+      "spring-core-5.3.39.jar",
+      "jstl-1.2.jar",
+      "spring-security-core-5.8.16.jar",
+      "spring-security-web-5.8.16.jar",
+      "spring-expression-5.3.39.jar",
+      "spring-context-5.3.39.jar",
+      "spring-web-5.3.39.jar",
+      "spring-security-config-5.8.16.jar",
+      "spring-security-crypto-5.8.16.jar",
+      "spring-webmvc-5.3.39.jar"
+    ],
+    "result": "PASS"
+  },
+  "not_verified": [
+    "External host deployment",
+    "HTTPS edge and mobile access",
+    "Deployed-secret configuration",
+    "Container authenticated login with a real deployment secret",
+    "Render uptime, account or billing conditions"
+  ]
+}

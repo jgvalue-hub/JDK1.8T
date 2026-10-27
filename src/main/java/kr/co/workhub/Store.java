@@ -408,11 +408,27 @@ public class Store {
   }
 
   public void seed() {
+    seed("DevOnly!2026pass", false);
+  }
+
+  public void seedContainerDemo(String secret) {
+    seed(ContainerDemoPolicy.requireSecret(secret), true);
+  }
+
+  private void seed(String seedPassword, boolean containerDemo) {
     tx.execute(
         status -> {
-          if (db.queryForObject("SELECT COUNT(*) FROM users", Integer.class) > 0) return null;
+          if (db.queryForObject("SELECT COUNT(*) FROM users", Integer.class) > 0) {
+            if (containerDemo) {
+              for (String hash : db.queryForList("SELECT password FROM users", String.class))
+                if (encoder.matches("DevOnly!2026pass", hash))
+                  throw new IllegalStateException(
+                      "A local dev database cannot be used for container-demo");
+            }
+            return null;
+          }
           db.update("INSERT INTO departments(name) VALUES(?)", "기획운영팀");
-          String hash = encoder.encode("DevOnly!2026pass");
+          String hash = encoder.encode(seedPassword);
           for (String[] u :
               new String[][] {
                 {"admin", "시스템 관리자", "ADMIN"},
@@ -428,6 +444,7 @@ public class Store {
                 u[1],
                 u[0] + "@example.test",
                 u[2]);
+          if (containerDemo) db.update("UPDATE users SET enabled=FALSE WHERE username <> 'admin'");
           db.update(
               "INSERT INTO clients(name,contact,description) VALUES(?,?,?)",
               "샘플 파트너",

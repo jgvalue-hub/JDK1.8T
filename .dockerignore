@@ -1,0 +1,11 @@
+# Allow only build inputs; no working-tree artifacts or secrets enter the context.
+**
+!pom.xml
+!src/
+!src/**
+!deploy/
+!deploy/server.xml
+!deploy/context.xml
+!deploy/container-entrypoint.sh
+!Dockerfile
+!.dockerignore

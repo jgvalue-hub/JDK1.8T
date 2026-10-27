@@ -61,3 +61,7 @@ mvn clean verify                  # 기본 프로필: H2는 테스트 의존성�
 - WAR/ZIP, 실행 DB, 캐시, 로그, 브라우저 캡처는 `.gitignore`로 소스 저장에서 제외합니다.
 
 외부 발송, 공개 웹 배포, 운영 DB 변경, PR/merge는 구현 및 검증 범위에 포함되지 않습니다. GitHub에는 전용 작업 브랜치의 소스·문서·테스트만 저장합니다.
+
+## 모바일 테스트용 별도 배포 준비
+
+[컨테이너 데모 배포 안내](docs/CONTAINER-DEMO.md)에 Dockerfile, Java 8/Tomcat 9, HTTPS 프록시, PORT 및 별도 비밀 설정을 설명했습니다. `container-demo`는 고정 로컬 비밀번호를 사용하지 않고 필수 설정 없이는 기동을 거절합니다. Codex 자체 모바일 접속 URL은 제공되지 않습니다. 외부 배포·비밀 설정·공개 범위는 별도 승인이 필요합니다.

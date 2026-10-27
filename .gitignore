@@ -24,3 +24,8 @@ maven-settings.xml
 /docs/build-*.txt
 /docs/test-results/
 /docs/PROGRESS.md
+/deploy/secrets/
+*.pem
+*.key
+*.p12
+*.pfx
