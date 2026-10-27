@@ -1,0 +1,25 @@
+{
+  "war": "workhub.war",
+  "baseline": "Java 8 class version <=52",
+  "class_count": 6611,
+  "ignored_multi_release_or_module_info": 0,
+  "incompatible": [],
+  "libraries": [
+    "spring-aop-5.3.39.jar",
+    "spring-jcl-5.3.39.jar",
+    "spring-tx-5.3.39.jar",
+    "spring-jdbc-5.3.39.jar",
+    "spring-beans-5.3.39.jar",
+    "spring-core-5.3.39.jar",
+    "jstl-1.2.jar",
+    "spring-security-core-5.8.16.jar",
+    "spring-security-web-5.8.16.jar",
+    "spring-expression-5.3.39.jar",
+    "spring-context-5.3.39.jar",
+    "spring-web-5.3.39.jar",
+    "spring-security-config-5.8.16.jar",
+    "spring-security-crypto-5.8.16.jar",
+    "spring-webmvc-5.3.39.jar"
+  ],
+  "result": "PASS"
+}

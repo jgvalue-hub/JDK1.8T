@@ -1,0 +1,26 @@
+target/
+.data/
+.tools/
+*.log
+__pycache__/
+*.pyc
+
+# Generated packages, runtime state and workstation-only files
+*.war
+*.zip
+*.jar
+*.db
+*.db.*
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.gif
+.env
+.env.*
+!.env.example
+settings.xml
+maven-settings.xml
+/docs/build-*.txt
+/docs/test-results/
+/docs/PROGRESS.md

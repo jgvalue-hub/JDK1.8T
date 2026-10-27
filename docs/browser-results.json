@@ -1,0 +1,12 @@
+{
+  "result": "PASS",
+  "desktop": "1440x1000",
+  "mobile": "390x844",
+  "checks": [
+    "real login",
+    "CSS loaded",
+    "task form submission and detail",
+    "mobile no horizontal overflow",
+    "no browser JS errors"
+  ]
+}

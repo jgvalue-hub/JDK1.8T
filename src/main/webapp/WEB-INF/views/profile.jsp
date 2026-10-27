@@ -1,0 +1,5 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="head.jspf" %>
+<section class="panel form-panel"><p class="muted">내 연락처와 로그인 비밀번호를 관리합니다.</p><form method="post" action="${ctx}/profile"><input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"><label>아이디<input value="<c:out value='${record.username}'/>" disabled></label><label>이름<input name="name" value="<c:out value='${record.name}'/>" maxlength="100" required></label><label>이메일<input type="email" name="email" value="<c:out value='${record.email}'/>" maxlength="150" required></label><h2>비밀번호 변경</h2><p class="muted">변경할 때만 입력하세요. 12자 이상, UTF-8 72바이트 이하.</p><label>현재 비밀번호<input type="password" name="current_password" autocomplete="current-password"></label><label>새 비밀번호<input type="password" name="password" autocomplete="new-password"></label><button class="primary">변경사항 저장</button></form></section>
+<%@ include file="foot.jspf" %>

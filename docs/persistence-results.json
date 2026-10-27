@@ -1,0 +1,5 @@
+{
+  "result": "PASS",
+  "approval_id": "2",
+  "check": "After full Tomcat stop/start, approved request title and decision note persist in file H2"
+}

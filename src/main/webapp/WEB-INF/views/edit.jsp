@@ -1,0 +1,5 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="head.jspf" %>
+<section class="panel form-panel"><form method="post" action="${ctx}/${entity}/save"><input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"><%@ include file="fields.jspf" %><div class="actions"><button class="primary">저장</button><a class="button" href="${ctx}/${entity}">취소</a></div></form><c:if test="${entity == 'clients' && not empty record.id && manager}"><details><summary>거래처 삭제</summary><form method="post" action="${ctx}/clients/${record.id}/delete"><input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"><input type="hidden" name="version" value="${record.version}"><label class="confirm"><input type="checkbox" required> 삭제 확인</label><button class="danger">삭제</button></form></details></c:if></section>
+<%@ include file="foot.jspf" %>
