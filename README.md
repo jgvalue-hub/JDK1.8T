@@ -1,25 +1,49 @@
-# Workhub — Java 8 / JEUS 8.5 업무관리
+# Workhub — Java 8 / Spring Boot 2.7.18 / JEUS 8.5
 
-한국어 사내 업무관리 웹시스템. **Java 1.8, javax Servlet 4.0, Spring MVC 5.3.39, Spring Security 5.8.16, JSP/JSTL, Maven WAR**로 작성했습니다. 등록/수정을 하나의 화면 모드로 계산한 20개 화면을 제공합니다. 원래 저장소는 커밋·소스가 없는 상태였으며 기존 파일을 덮어쓰지 않았습니다.
+한국어 업무관리 20화면 시스템을 **Java 8, Spring Framework 5.3.34, Spring Boot 2.7.18, Gradle 7.6 Wrapper**로 재구성했습니다. Spring Security는 기존 **5.8.16**을 유지합니다. JSP/JSTL과 javax Servlet 4.0 기반이며 외부 Tomcat/JEUS용 일반 WAR와 로컬 실행형 Boot WAR를 함께 제공합니다. Maven 설치나 pom.xml은 필요하지 않습니다.
 
-## 빠른 실행
+## PC에서 빠른 실행
 
-JDK 8, Maven 3.9.x, Tomcat 9가 필요합니다. Tomcat은 JEUS가 없는 개발 환경의 대체 서버입니다.
+JDK 8을 설치하고 JAVA_HOME을 JDK 설치 폴더로 지정합니다. Gradle은 Wrapper가 공식 배포본을 받아 SHA-256을 검사합니다. 첫 빌드에는 Gradle 공식 배포 서버, Plugin Portal, Maven Central 접근이 필요합니다. Maven Central은 라이브러리 저장소 이름이며 Maven 빌드 도구를 설치할 필요는 없습니다.
 
+Linux/macOS:
 ```bash
 export JAVA_HOME=/path/to/jdk8
-export PATH="$JAVA_HOME/bin:/path/to/apache-maven/bin:$PATH"
-mvn -Pdev clean verify
-cp target/workhub.war target/workhub-dev.war
-export CATALINA_HOME=/path/to/apache-tomcat-9
-./scripts/dev-server.sh run
+export PATH="$JAVA_HOME/bin:$PATH"
+./gradlew --version
+./gradlew -Pdev clean test verifyVersions bootWar
+java -Dspring.profiles.active=dev -jar build/libs/workhub-dev-boot.war
 ```
 
-Tomcat 커넥터를 localhost:18080으로 설정하면 `http://127.0.0.1:18080/workhub/login`에서 접속합니다. 일반 Tomcat 기본 포트는 8080입니다. 개발 서버 스크립트는 포트 설정을 바꾸지 않습니다. 데이터는 저장소의 `.data/workhub.mv.db`에 남습니다. 중지는 Ctrl-C 또는 `./scripts/dev-server.sh stop`입니다.
+Windows PowerShell (JDK 경로는 본인 PC의 실제 설치 경로로 변경):
+```powershell
+$env:JAVA_HOME = 'C:\Java\jdk8'
+$env:Path = "$env:JAVA_HOME\bin;$env:Path"
+.\gradlew.bat --version
+.\gradlew.bat -Pdev clean test verifyVersions bootWar
+java "-Dspring.profiles.active=dev" -jar build/libs/workhub-dev-boot.war
+```
 
-검증 환경은 Temurin JDK 8u472-b08, Maven 3.9.9, Tomcat 9.0.113입니다. 로컬 경로와 프록시 설정은 각 개발 환경에서 지정하며 저장소에 포함하지 않습니다. 이 버전들이 최신 보안 패치라는 의미는 아닙니다.
+PC에서 `http://127.0.0.1:8080/workhub/login`으로 접속합니다. dev는 loopback에만 바인딩합니다. 종료는 Ctrl-C, 재실행은 같은 폴더에서 마지막 java 명령을 다시 실행합니다. 파일 DB `.data/workhub.mv.db`는 재시작 후 유지됩니다. 필요하면 JVM 옵션 `-Dworkhub.db.url=jdbc:h2:file:/your/path/workhub`로 개발 DB 경로를 지정합니다. 다른 프로세스가 같은 H2 파일을 동시에 열지 않도록 합니다. Windows 명령은 문법 검토했으며 Windows 실기동은 검증하지 않았습니다.
 
-**demo-only 개발 전용 계정**: `admin`(관리자), `manager`(매니저), `user` 및 `other`(일반 사용자). 공통 비밀번호는 `DevOnly!2026pass`. `spring.profiles.active=dev`에서 빈 개발 DB에만 생성됩니다. 운영 프로필에는 계정·샘플 데이터 자동 생성이 없습니다. 가상 이메일은 `example.test`만 사용합니다.
+**`-Pdev`는 빌드 시 H2를 포함하는 Gradle 속성입니다. 런타임 dev 프로필은 자동 활성화되지 않으며 `-Dspring.profiles.active=dev`를 별도로 지정해야 합니다.** 프로필을 생략하면 JNDI 운영 설정으로 시작하며 JNDI가 없으면 실패합니다.
+
+**demo-only 로컬 개발 계정**: `admin`(관리자), `manager`(매니저), `user`/`other`(일반). 공통 비밀번호 `DevOnly!2026pass`는 dev의 빈 DB에만 생성합니다. 인터넷 공개용 계정이 아닙니다. 운영은 자동 계정을 만들지 않고, container-demo는 별도 비밀 설정 없이는 시작하지 않습니다.
+
+## 패키징과 외부 서버
+
+```bash
+./gradlew clean test verifyVersions war          # 운영 일반 WAR: build/libs/workhub.war
+./gradlew -Pdev clean test verifyVersions war bootWar
+# 개발 일반 WAR: build/libs/workhub-dev.war
+# 개발 실행형 WAR: build/libs/workhub-dev-boot.war
+```
+
+운영 일반 WAR에는 H2, Servlet API, 내장 Tomcat/Jasper/ECJ가 없습니다. JEUS에는 이 일반 WAR를 사용합니다. 실행형 bootWar는 내장 컨테이너를 WEB-INF/lib-provided로 분리하며 `java -jar`로 실행합니다. 운영 bootWar도 생성 가능하지만 기본 JNDI는 별도 환경 설정이 필요하므로 운영 JEUS용으로 권하지 않습니다. clean은 이전 build 산출물을 제거합니다.
+
+개발 일반 WAR를 Tomcat 9의 `webapps/workhub.war`로 복사하고 JVM 옵션 `-Dspring.profiles.active=dev`를 지정할 수도 있습니다. Linux/macOS는 JAVA_HOME, CATALINA_HOME을 지정한 후 `./scripts/dev-server.sh run`을 사용합니다. 외부 서버 context는 WAR 이름/서버 설정을 따르고, 실행형 WAR의 기본 context는 `/workhub`입니다.
+
+운영은 `java:comp/env/jdbc/WorkhubDS` JNDI DataSource를 사용합니다. JVM 옵션 `-Dworkhub.jndi=...`로 다른 이름을 지정할 수 있습니다. Boot의 DataSource/SQL 초기화 자동 설정을 제외해 기존 프로필별 DataSource와 seed를 보존했습니다. 운영 스키마와 계정은 자동 생성하지 않습니다. SQL은 H2 2.2.224에서 검증했으며 다른 DB는 DDL·페이징·생성키 문법을 이식해야 합니다. [JEUS 배포 안내](docs/JEUS-DEPLOY.md)를 참고하세요.
 
 ## 기능과 권한
 
@@ -33,35 +57,18 @@ Tomcat 커넥터를 localhost:18080으로 설정하면 `http://127.0.0.1:18080/w
 - 트랜잭션 안에서 변경과 감사로그를 함께 저장합니다. 로그는 앱에서 수정/삭제할 수 없지만 DBA 수준의 변조 방지 저장소는 아닙니다.
 - BCrypt cost 12, 로그인 시 세션 ID 변경, 30분 세션 만료, HttpOnly, POST 로그아웃, CSRF, CSP/보안 응답 헤더, 서버 입력검증, JSP 출력 이스케이프, 외래키 검사를 적용합니다. 운영 쿠키는 Secure입니다.
 
-## 운영 빌드와 배포
+## 버전과 보안 지원 한계
 
-```bash
-mvn clean verify                  # 기본 프로필: H2는 테스트 의존성만
-# target/workhub.war → JEUS에 배포할 운영 WAR
-```
+Boot BOM 기본 Framework 5.3.31과 Security 5.7.11을 각각 사용자 지정 5.3.34와 기존 5.8.16으로 명시 override합니다. `verifyVersions`가 실제 runtime/test 의존성을 검사하며 결과는 `build/reports/resolved-versions.txt`에 생성합니다. [현재 해석 결과](docs/dependencies.txt)와 [변경·검증 결과](docs/VERIFICATION.md)를 제공합니다.
 
-**기본 실행은 운영 모드**입니다. JNDI `java:comp/env/jdbc/WorkhubDS`가 반드시 필요하며 DB 생성/수정/샘플 삽입을 자동 수행하지 않습니다. `-Dworkhub.jndi=...`로 정확한 서버 JNDI 이름을 지정할 수 있습니다. 운영 WAR에는 H2·Servlet API·Tomcat이 포함되지 않습니다.
+**Spring Boot 2.x는 2.7.18을 끝으로 OSS 지원이 종료되었고, Framework 5.3/Security 5.8 OSS 지원도 2024-08-31 종료되었습니다.** 요청한 정확한 버전을 유지했으며 임의 업그레이드하지 않았습니다. Framework 5.3.34는 종전 5.3.39보다 이전 버전이고, Boot가 추가하는 전이 의존성에도 보안 검토가 필요합니다. 보안 무결점이나 JEUS 실배포 통과를 주장하지 않습니다. [공식 Boot 안내](https://spring.io/blog/2023/11/23/spring-boot-2-7-18-available-now/) 및 [보안 한계](docs/SECURITY.md)를 확인하세요.
 
-현재 스키마와 SQL은 H2 2.2.224에서 검증했습니다. 운영 DB가 지정되지 않았으므로 Oracle/Tibero/MySQL 등 특정 DB 지원을 주장하지 않습니다. JNDI 연결 분리는 구현됐지만 다른 DB는 identity/boolean/check/페이징 문법과 생성 키 반환을 조정하고 회귀 테스트해야 합니다. 상세 절차는 [JEUS 배포 안내](docs/JEUS-DEPLOY.md)를 보세요.
+## 소스와 검증
 
-## 보안 지원 한계
+- [20개 화면](docs/SCREENS.md), [검증 결과](docs/VERIFICATION.md), [컨테이너 데모 설정](docs/CONTAINER-DEMO.md).
+- `scripts/http-smoke.py`: 실제 로그인·20 JSP·CRUD·권한·승인 흐름. 개발용 가상 DB에만 실행합니다.
+- `scripts/browser-check.py`: Chromium 데스크톱/모바일 화면. `scripts/check-bytecode.py`: WAR 전체 Java 8 검사.
+- `src/test`: 기존 업무 테스트와 Boot 컨텍스트/필터/프로필/JNDI/fail-closed 회귀 테스트.
+- WAR/ZIP/DB/로그/캐시/화면 캡처/환경별 프록시 설정은 소스 저장에서 제외합니다. 공식 Wrapper JAR만 포함합니다.
 
-**Spring Framework 5.3 OSS 지원은 2024-08-31 종료되었습니다.** Spring Security 5.8도 해당 종료 일정에 포함됩니다. Java 8 요구사항을 유지하기 위해 이 계열을 사용했으며 최신 지원 계열로 임의 전환하지 않았습니다. 이 WAR를 보안 검토 없이 운영에 공개하면 안 됩니다. 상용 유지보수 버전 적용 또는 플랫폼 업그레이드 계획이 필요합니다.
-
-[Spring 공식 지원 종료 안내](https://spring.io/blog/2024/03/01/support-timeline-announcement-for-spring-framework-6-0-x-and-5-3-x/)와 [의존성·보안 검토](docs/SECURITY.md)에 알려진 한계와 버전 확인 근거를 기록했습니다. 몇 가지 공격 경로를 피했다고 모든 알려진 취약점이 해결된 것은 아닙니다. 전체 SCA 무결점·침투테스트·JEUS 실배포는 확인되지 않았습니다.
-
-## 검증과 산출물
-
-- [20개 화면 목록](docs/SCREENS.md)
-- [실제 검증 결과](docs/VERIFICATION.md)
-- `target/workhub.war`: 운영 WAR, `target/workhub-dev.war`: 개발 WAR
-- `scripts/http-smoke.py`: 실제 HTTP 흐름, `scripts/browser-check.py`: Chromium 화면 검증
-- `scripts/check-bytecode.py`: WAR 및 의존성의 Java 8 바이트코드 검사
-- `src/test/java/kr/co/workhub/WorkflowTest.java`: Spring MVC/보안/DB 통합 테스트
-- WAR/ZIP, 실행 DB, 캐시, 로그, 브라우저 캡처는 `.gitignore`로 소스 저장에서 제외합니다.
-
-외부 발송, 공개 웹 배포, 운영 DB 변경, PR/merge는 구현 및 검증 범위에 포함되지 않습니다. GitHub에는 전용 작업 브랜치의 소스·문서·테스트만 저장합니다.
-
-## 모바일 테스트용 별도 배포 준비
-
-[컨테이너 데모 배포 안내](docs/CONTAINER-DEMO.md)에 Dockerfile, Java 8/Tomcat 9, HTTPS 프록시, PORT 및 별도 비밀 설정을 설명했습니다. `container-demo`는 고정 로컬 비밀번호를 사용하지 않고 필수 설정 없이는 기동을 거절합니다. Codex 자체 모바일 접속 URL은 제공되지 않습니다. 외부 배포·비밀 설정·공개 범위는 별도 승인이 필요합니다.
+재구성은 별도 로컬 브랜치에서 수행했습니다. 이번 변경은 원격 push 또는 Render 재배포하지 않았으며 기존 배포 브랜치를 보존했습니다.

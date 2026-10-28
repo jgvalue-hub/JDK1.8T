@@ -1,0 +1,80 @@
+plugins {
+    id 'java'
+    id 'war'
+    id 'org.springframework.boot' version '2.7.18'
+    id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'kr.co.workhub'
+version = '1.0.0'
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+// Boot 2.7.18 normally manages Framework 5.3.31 / Security 5.7.11.
+// Preserve the exact user-requested Framework and the existing security baseline.
+ext['spring-framework.version'] = '5.3.34'
+ext['spring-security.version'] = '5.8.16'
+ext['h2.version'] = '2.2.224'
+ext['tomcat.version'] = '9.0.123'
+
+def devBuild = providers.gradleProperty('dev').isPresent()
+repositories { mavenCentral() }
+dependencies {
+    implementation('org.springframework.boot:spring-boot-starter-web') {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+    }
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework:spring-jdbc'
+    implementation 'javax.servlet:jstl:1.2'
+    providedCompile 'javax.servlet:javax.servlet-api:4.0.1'
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    providedRuntime 'org.apache.tomcat.embed:tomcat-embed-jasper'
+    if (devBuild) { runtimeOnly 'com.h2database:h2' }
+    testRuntimeOnly 'com.h2database:h2'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'junit:junit:4.13.2'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.compilerArgs += ['-parameters']
+}
+test {
+    useJUnit()
+    maxParallelForks = 1
+    testLogging { events 'passed', 'skipped', 'failed' }
+}
+springBoot { mainClass = 'kr.co.workhub.WorkhubApplication' }
+war { archiveFileName = devBuild ? 'workhub-dev.war' : 'workhub.war' }
+bootWar { archiveFileName = devBuild ? 'workhub-dev-boot.war' : 'workhub-boot.war' }
+bootJar { enabled = false }
+jar { enabled = false }
+
+wrapper {
+    gradleVersion = '7.6'
+    distributionType = Wrapper.DistributionType.BIN
+    distributionSha256Sum = '7ba68c54029790ab444b39d7e293d3236b2632631fb5f2e012bb28b4ff669e4b'
+}
+
+tasks.register('verifyVersions') {
+    description = 'Resolve and assert the exact requested Spring/Boot/Security versions.'
+    doLast {
+        def lines = []
+        ['runtimeClasspath', 'testRuntimeClasspath'].each { name ->
+            def modules = configurations.getByName(name).resolvedConfiguration.resolvedArtifacts
+            modules.each { artifact ->
+                def id = artifact.moduleVersion.id
+                if (id.group == 'org.springframework') assert id.version == '5.3.34': id
+                if (id.group == 'org.springframework.boot') assert id.version == '2.7.18': id
+                if (id.group == 'org.springframework.security') assert id.version == '5.8.16': id
+                lines << "${name} ${id.group}:${id.name}:${id.version}"
+            }
+        }
+        def out = layout.buildDirectory.file('reports/resolved-versions.txt').get().asFile
+        out.parentFile.mkdirs()
+        out.text = lines.unique().sort().join('\n') + '\n'
+        println "Exact versions verified: Framework 5.3.34, Boot 2.7.18, Security 5.8.16"
+    }
+}
+check.dependsOn verifyVersions

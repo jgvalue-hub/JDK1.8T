@@ -1,0 +1,15 @@
+{
+  "result": "PASS",
+  "negative_startup_checks": [
+    "explicit demo opt-in",
+    "HTTPS proxy confirmation",
+    "public hostname",
+    "secret required",
+    "short secret",
+    "port validation",
+    "hostname injection rejected",
+    "Render hostname fallback"
+  ],
+  "xml": "PASS",
+  "network_or_deployment_performed": false
+}

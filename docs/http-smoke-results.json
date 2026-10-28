@@ -1,5 +1,5 @@
 {
-  "base": "http://127.0.0.1:18080/workhub",
+  "base": "http://127.0.0.1:18081/workhub",
   "checks": [
     "admin session fixation protection PASS",
     "user session fixation protection PASS",
@@ -25,13 +25,13 @@
     "GET /notices 200 JSP PASS",
     "GET /audit 200 JSP PASS",
     "GET /approvals/edit 200 JSP PASS",
-    "GET /approvals/2 200 JSP PASS",
+    "GET /approvals/1 200 JSP PASS",
     "approval DRAFT→PENDING→REJECTED→DRAFT→PENDING→APPROVED; duplicate 409; other user 403 PASS",
     "client create/read/update + stored XSS escaping PASS",
     "CSRF 403; admin route 403; record ownership 403; validation 400 PASS",
     "client delete + subsequent 404 PASS",
     "POST logout invalidates session PASS"
   ],
-  "persisted_approval_id": "2",
+  "persisted_approval_id": "1",
   "result": "PASS"
 }

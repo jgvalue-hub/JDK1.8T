@@ -29,3 +29,8 @@ maven-settings.xml
 *.key
 *.p12
 *.pfx
+
+# Gradle output and cache; keep the verified official Wrapper JAR
+/build/
+/.gradle/
+!gradle/wrapper/gradle-wrapper.jar

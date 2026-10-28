@@ -18,7 +18,9 @@ import org.springframework.web.context.WebApplicationContext;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(classes = {AppConfig.class, SecurityConfig.class, MvcConfig.class})
+@org.springframework.boot.test.context.SpringBootTest(
+    classes = WorkhubApplication.class,
+    webEnvironment = org.springframework.boot.test.context.SpringBootTest.WebEnvironment.MOCK)
 @ActiveProfiles("dev")
 public class WorkflowTest {
   static {
@@ -57,6 +59,38 @@ public class WorkflowTest {
     } catch (Problem p) {
       assertEquals(code, p.status);
     }
+  }
+
+  @Test
+  public void bootWiringKeepsSingleExplicitInfrastructure() {
+    assertEquals("2.7.18", org.springframework.boot.SpringBootVersion.getVersion());
+    assertEquals("5.3.34", org.springframework.core.SpringVersion.getVersion());
+    assertEquals(
+        "5.8.16", org.springframework.security.core.SpringSecurityCoreVersion.getVersion());
+    assertEquals(1, context.getBeansOfType(javax.sql.DataSource.class).size());
+    assertEquals(
+        1, context.getBeansOfType(org.springframework.jdbc.core.JdbcTemplate.class).size());
+    assertEquals(
+        1, context.getBeansOfType(org.springframework.security.web.FilterChainProxy.class).size());
+    assertEquals(
+        1,
+        context
+            .getBeansOfType(
+                org.springframework.boot.web.servlet.DelegatingFilterProxyRegistrationBean.class)
+            .size());
+    assertEquals(
+        1,
+        context
+            .getBeansOfType(org.springframework.web.filter.CharacterEncodingFilter.class)
+            .size());
+    assertEquals(
+        1,
+        context
+            .getBeansOfType(org.springframework.security.core.userdetails.UserDetailsService.class)
+            .size());
+    assertFalse(context.containsBean("dataSourceScriptDatabaseInitializer"));
+    assertFalse(context.containsBean("inMemoryUserDetailsManager"));
+    assertEquals("never", context.getEnvironment().getProperty("spring.sql.init.mode"));
   }
 
   @Test

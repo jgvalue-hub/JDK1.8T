@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 from playwright.sync_api import sync_playwright
 from pathlib import Path
-import json
-base='http://127.0.0.1:18080/workhub'
+import json,sys
+base=sys.argv[1] if len(sys.argv)>1 else 'http://127.0.0.1:18080/workhub'
 with sync_playwright() as p:
  browser=p.chromium.launch(executable_path='/usr/bin/chromium',headless=True,args=['--no-sandbox'])
  page=browser.new_page(viewport={'width':1440,'height':1000})

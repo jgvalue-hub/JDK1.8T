@@ -1,6 +1,10 @@
 # Allow only build inputs; no working-tree artifacts or secrets enter the context.
 **
-!pom.xml
+!build.gradle
+!settings.gradle
+!gradlew
+!gradle/
+!gradle/**
 !src/
 !src/**
 !deploy/
