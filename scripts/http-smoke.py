@@ -5,7 +5,7 @@ BASE=sys.argv[1] if len(sys.argv)>1 else 'http://127.0.0.1:18080/workhub'
 report=[]
 class Client:
  def __init__(self,user):
-  self.jar=http.cookiejar.CookieJar();self.opener=urllib.request.build_opener(urllib.request.ProxyHandler({}),urllib.request.HTTPCookieProcessor(self.jar));self.get('/login');before=self.cookie();self.post('/login',{'username':user,'password':'DevOnly!2026pass'});assert '/dashboard' in self.url;assert before!=self.cookie();report.append(user+' session fixation protection PASS')
+  self.jar=http.cookiejar.CookieJar();self.opener=urllib.request.build_opener(urllib.request.ProxyHandler({}),urllib.request.HTTPCookieProcessor(self.jar));self.get('/login');before=self.cookie();self.post('/login',{'username':user,'password':'DevOnly!2026pass'});assert self.url.endswith('/reports');assert before!=self.cookie();report.append(user+' session fixation protection PASS')
  def cookie(self):return next((c.value for c in self.jar if c.name=='JSESSIONID'),None)
  def request(self,path,data=None):
   try:

@@ -8,7 +8,7 @@ with sync_playwright() as p:
  page=browser.new_page(viewport={'width':1440,'height':1000})
  errors=[]
  page.on('pageerror',lambda err:errors.append(str(err)))
- page.goto(base+'/login');page.get_by_label('아이디',exact=True).fill('admin');page.get_by_label('비밀번호',exact=True).fill('DevOnly!2026pass');page.get_by_role('button',name='로그인',exact=True).click();page.wait_for_url('**/dashboard')
+ page.goto(base+'/login');page.get_by_label('아이디',exact=True).fill('admin');page.get_by_label('비밀번호',exact=True).fill('DevOnly!2026pass');page.get_by_role('button',name='로그인',exact=True).click();page.wait_for_url('**/reports');page.goto(base+'/dashboard')
  assert page.locator('h1').inner_text()=='대시보드'
  assert page.locator('body').evaluate('(el)=>getComputedStyle(el).backgroundColor')=='rgb(245, 247, 251)'
  page.screenshot(path='docs/dashboard-desktop.png',full_page=True)

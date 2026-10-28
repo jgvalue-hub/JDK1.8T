@@ -1,0 +1,12 @@
+{
+  "result": "PASS",
+  "desktop": "1440x1000",
+  "mobile": "390x844",
+  "checks": [
+    "50 unique main entries; ten groups; live menu filtering and empty state",
+    "ten domain editors: demo population, add/remove line, save, server calculation and detail",
+    "server validation error retains entered values",
+    "390x844 mobile index/list/editor/detail; no document overflow; filtered menu navigation and saved report"
+  ],
+  "javascript_errors": []
+}

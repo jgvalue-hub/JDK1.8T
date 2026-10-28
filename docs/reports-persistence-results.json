@@ -1,0 +1,10 @@
+{
+  "result": "PASS",
+  "base": "http://127.0.0.1:18083/workhub",
+  "report_id": "102",
+  "checks": [
+    "approved title and decision note survive full process restart",
+    "approved version 9 retained",
+    "underlying input record and escaped memo retained"
+  ]
+}

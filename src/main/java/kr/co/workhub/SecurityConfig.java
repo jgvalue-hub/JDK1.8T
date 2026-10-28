@@ -56,7 +56,7 @@ public class SecurityConfig {
         .successHandler(
             (req, res, auth) -> {
               store.audit(auth.getName(), "LOGIN", "session");
-              res.sendRedirect(req.getContextPath() + "/dashboard");
+              res.sendRedirect(req.getContextPath() + "/reports");
             })
         .failureUrl("/login?error")
         .permitAll()

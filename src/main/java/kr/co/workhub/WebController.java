@@ -69,7 +69,7 @@ public class WebController {
 
   @GetMapping("/")
   public String home(RedirectAttributes redirect) {
-    return "redirect:/dashboard";
+    return "redirect:/reports";
   }
 
   @GetMapping("/login")

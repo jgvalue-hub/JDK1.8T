@@ -1,0 +1,325 @@
+{
+  "result": "PASS",
+  "base": "http://127.0.0.1:18083/workhub",
+  "menu_count": 50,
+  "reports": [
+    {
+      "code": "journal-vouchers",
+      "family": "LEDGER",
+      "id": "66",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "trial-balance",
+      "family": "LEDGER",
+      "id": "67",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "closing-adjustments",
+      "family": "LEDGER",
+      "id": "68",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "expense-ledger",
+      "family": "LEDGER",
+      "id": "69",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "intercompany",
+      "family": "LEDGER",
+      "id": "70",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "receivable-aging",
+      "family": "RECEIVABLE",
+      "id": "71",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "collection-plan",
+      "family": "RECEIVABLE",
+      "id": "72",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "sales-reconciliation",
+      "family": "RECEIVABLE",
+      "id": "73",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "customer-arrears",
+      "family": "RECEIVABLE",
+      "id": "74",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "revenue-cutoff",
+      "family": "RECEIVABLE",
+      "id": "75",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "payable-aging",
+      "family": "PAYABLE",
+      "id": "76",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "payment-plan",
+      "family": "PAYABLE",
+      "id": "77",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "vendor-reconciliation",
+      "family": "PAYABLE",
+      "id": "78",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "purchase-accrual",
+      "family": "PAYABLE",
+      "id": "79",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "expense-settlement",
+      "family": "PAYABLE",
+      "id": "80",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "fixed-assets",
+      "family": "ASSET",
+      "id": "81",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "depreciation",
+      "family": "ASSET",
+      "id": "82",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "asset-disposal",
+      "family": "ASSET",
+      "id": "83",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "capex-review",
+      "family": "ASSET",
+      "id": "84",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "intangible-assets",
+      "family": "ASSET",
+      "id": "85",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "budget-performance",
+      "family": "BUDGET",
+      "id": "86",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "department-budget",
+      "family": "BUDGET",
+      "id": "87",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "project-profit",
+      "family": "BUDGET",
+      "id": "88",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "cost-variance",
+      "family": "BUDGET",
+      "id": "89",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "rolling-forecast",
+      "family": "BUDGET",
+      "id": "90",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "cash-position",
+      "family": "CASH",
+      "id": "91",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "cash-flow",
+      "family": "CASH",
+      "id": "92",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "liquidity-gap",
+      "family": "CASH",
+      "id": "93",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "funding-plan",
+      "family": "CASH",
+      "id": "94",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "liquidity-stress",
+      "family": "CASH",
+      "id": "95",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "fx-risk",
+      "family": "MARKET",
+      "id": "96",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "interest-risk",
+      "family": "MARKET",
+      "id": "97",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "price-risk",
+      "family": "MARKET",
+      "id": "98",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "hedge-effect",
+      "family": "MARKET",
+      "id": "99",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "market-stress",
+      "family": "MARKET",
+      "id": "100",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "credit-exposure",
+      "family": "CREDIT",
+      "id": "101",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "expected-loss",
+      "family": "CREDIT",
+      "id": "102",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "credit-concentration",
+      "family": "CREDIT",
+      "id": "103",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "collateral-review",
+      "family": "CREDIT",
+      "id": "104",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "counterparty-watch",
+      "family": "CREDIT",
+      "id": "105",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "risk-register",
+      "family": "OPERATION",
+      "id": "106",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "incident-review",
+      "family": "OPERATION",
+      "id": "107",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "business-continuity",
+      "family": "OPERATION",
+      "id": "108",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "vendor-risk",
+      "family": "OPERATION",
+      "id": "109",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "security-risk",
+      "family": "OPERATION",
+      "id": "110",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "control-testing",
+      "family": "CONTROL",
+      "id": "111",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "audit-actions",
+      "family": "CONTROL",
+      "id": "112",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "report-quality",
+      "family": "CONTROL",
+      "id": "113",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "compliance-check",
+      "family": "CONTROL",
+      "id": "114",
+      "CRUD_lines_trash_restore": "PASS"
+    },
+    {
+      "code": "risk-actions",
+      "family": "CONTROL",
+      "id": "115",
+      "CRUD_lines_trash_restore": "PASS"
+    }
+  ],
+  "checks": [
+    "50 list/edit/detail JSP routes",
+    "50 persisted report CRUD and editable input-line CRUD",
+    "50 soft delete and restore",
+    "stored HTML escaping",
+    "private report access 403",
+    "rejection/edit/resubmission/approval",
+    "approved edit/delete protection",
+    "copy preserves approved original",
+    "CSRF 403",
+    "validation 400 with retained input including malformed reviewer"
+  ],
+  "persisted": {
+    "code": "expected-loss",
+    "id": "102",
+    "title": "재기동 보존 보고서",
+    "decision": "가상 시나리오 확인 완료"
+  }
+}

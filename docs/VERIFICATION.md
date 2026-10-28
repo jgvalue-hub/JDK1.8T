@@ -1,3 +1,5 @@
+> 아래는 Boot/Gradle 전환 당시 검증 기록입니다. 이후 50개 메뉴 확장의 현재 검증은 [REPORTS-VERIFICATION.md](REPORTS-VERIFICATION.md)를 참고하세요.
+
 # Java 8 / Boot 2.7.18 / Gradle 7.6 재구성 검증
 
 검증일: 2026-10-28. 기준 커밋 `c8adff987ea0c8313bf896d430d04f0867a9bb06`에서 로컬 브랜치 `codex/workhub-boot2718-gradle76`를 만들었습니다. 기존 `codex/workhub-java8-jeus85`와 main은 변경하지 않았고 원격 push/Render 재배포하지 않았습니다. 아래 localhost 주소는 검증 환경 내부 주소이며 사용자용 공개 링크가 아닙니다.

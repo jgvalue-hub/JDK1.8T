@@ -17,15 +17,16 @@ import org.springframework.transaction.support.TransactionTemplate;
 public class AppConfig {
   @Bean
   @Profile("dev")
-  public DataSource devDataSource() {
+  public DataSource devDataSource(Environment env) {
     DriverManagerDataSource ds = new DriverManagerDataSource();
     ds.setDriverClassName("org.h2.Driver");
     ds.setUrl(
-        System.getProperty(
-            "workhub.db.url", "jdbc:h2:file:./.data/workhub;DB_CLOSE_ON_EXIT=FALSE"));
+        env.getProperty("workhub.db.url", "jdbc:h2:file:./.data/workhub;DB_CLOSE_ON_EXIT=FALSE"));
     ds.setUsername("sa");
     ds.setPassword("");
-    new ResourceDatabasePopulator(new ClassPathResource("schema.sql")).execute(ds);
+    new ResourceDatabasePopulator(
+            new ClassPathResource("schema.sql"), new ClassPathResource("report-schema.sql"))
+        .execute(ds);
     return ds;
   }
 
@@ -49,7 +50,9 @@ public class AppConfig {
     ds.setUrl("jdbc:h2:file:" + directory + "/workhub;DB_CLOSE_ON_EXIT=FALSE");
     ds.setUsername("sa");
     ds.setPassword("");
-    new ResourceDatabasePopulator(new ClassPathResource("schema.sql")).execute(ds);
+    new ResourceDatabasePopulator(
+            new ClassPathResource("schema.sql"), new ClassPathResource("report-schema.sql"))
+        .execute(ds);
     return ds;
   }
 

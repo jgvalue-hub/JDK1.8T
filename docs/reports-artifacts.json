@@ -1,0 +1,22 @@
+[
+  {
+    "name": "workhub-boot.war",
+    "bytes": 26154284,
+    "sha256": "dc3e37339f99ae1541182405ec4f60a1c4a7d7cc33fd8f24f50394ed65b8e18d"
+  },
+  {
+    "name": "workhub-dev-boot.war",
+    "bytes": 28769352,
+    "sha256": "3a73a81c5fa2af08d0f2ff6ff982ad9cb3760277f2f56f7cb85c85addf7b2394"
+  },
+  {
+    "name": "workhub-dev.war",
+    "bytes": 18323779,
+    "sha256": "7b9ac5ca7b476b415e366512bd92429bfcf14c234d4fbc36b974e4923606636b"
+  },
+  {
+    "name": "workhub.war",
+    "bytes": 15828999,
+    "sha256": "2627ebb4573f72a8a6e591ac825d50d870dd0bd123a752ed8049bede9a957c65"
+  }
+]

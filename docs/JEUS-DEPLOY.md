@@ -22,3 +22,7 @@
 ## Boot 전환 후 클래스 로딩
 
 `WorkhubApplication`의 `SpringBootServletInitializer`가 외부 Servlet 컨테이너에서 Boot를 초기화합니다. 이전 DispatcherServlet/Security 수동 initializer는 제거해 중복 등록을 방지했습니다. `war`는 서버 제공 Servlet API·내장 Tomcat/Jasper/ECJ를 모두 제외하며, `bootWar`의 `WEB-INF/lib-provided`는 실행형 용도입니다. JEUS에는 일반 `build/libs/workhub.war`를 배포하세요. Spring/Jackson/SLF4J/Logback과 서버 공용 라이브러리 충돌은 JEUS fix별로 별도 검증해야 합니다. 실제 JEUS 8.5 환경이 없어 클래스 로더·JNDI·서버 JSP 연계는 미검증입니다. 해시 도구를 실행하려면 일반 WAR를 별도 작업 폴더에 먼저 풀어 위 `/path/to/exploded-workhub` 경로를 실제 폴더로 바꾸세요.
+
+## 50개 회계·리스크 메뉴 확장 적용
+
+기존 스키마를 지우지 않고 `src/main/resources/report-schema.sql`의 financial_reports/report_lines/report_events 및 인덱스를 추가합니다. 운영 JNDI에서는 자동 적용하지 않습니다. DBA가 백업·DDL/DECIMAL/identity/행 잠금(FOR UPDATE)·생성키 반환·LIMIT/OFFSET 문법의 대상 DB 호환성을 검토한 후 승인된 절차로 적용해야 합니다. 앱은 승인본 수정·삭제 금지, 초안 휴지통·복구, 지정 검토자 분리와 버전 검사를 사용합니다. 실제 JEUS/운영 DB 적용은 이번 작업에서 하지 않았습니다.

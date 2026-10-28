@@ -1,0 +1,34 @@
+[
+  {
+    "file": "workhub.war",
+    "bytes": 15828999,
+    "h2": false,
+    "standard_libraries": 35,
+    "provided_libraries": 0,
+    "result": "PASS"
+  },
+  {
+    "file": "workhub-boot.war",
+    "bytes": 26154284,
+    "h2": false,
+    "standard_libraries": 31,
+    "provided_libraries": 8,
+    "result": "PASS"
+  },
+  {
+    "file": "workhub-dev.war",
+    "bytes": 18323779,
+    "h2": true,
+    "standard_libraries": 36,
+    "provided_libraries": 0,
+    "result": "PASS"
+  },
+  {
+    "file": "workhub-dev-boot.war",
+    "bytes": 28769352,
+    "h2": true,
+    "standard_libraries": 32,
+    "provided_libraries": 8,
+    "result": "PASS"
+  }
+]
